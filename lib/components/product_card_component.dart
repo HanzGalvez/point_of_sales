@@ -80,12 +80,12 @@ class ProductCard extends StatelessWidget {
           onDismissed();
         },
         child: ListTile(
-          leading: icons[product.iconId],
+          leading: Icon(Icons.shopify),
           onTap: () {
             onTap();
           },
           title: Text(
-            product.name,
+            product.name + " (25 Grams)",
             style: GoogleFonts.poppins(
               fontSize: 17,
               fontWeight: FontWeight.w500,

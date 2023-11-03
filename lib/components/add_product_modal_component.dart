@@ -27,7 +27,6 @@ class _AddProductModelState extends State<AddProductModel> {
   var priceController = TextEditingController();
   var sellpriceController = TextEditingController();
   var catId = 0;
-  var iconId = 0;
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
     try {
@@ -160,7 +159,6 @@ class _AddProductModelState extends State<AddProductModel> {
                   if (category.hasData) {
                     if (catId == 0 && category.data!.isNotEmpty) {
                       catId = category.data![0]['id'];
-                      iconId = category.data![0]['icon'];
                     }
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 8),
@@ -304,15 +302,13 @@ class _AddProductModelState extends State<AddProductModel> {
                         return;
                       }
                       var temp = Product(
-                          barcode: barcodeController.text,
-                          name: nameController.text,
-                          catId: catId,
-                          iconId: iconId,
-                          description: descController.text,
-                          measurement: sizeController.text,
-                          stock: int.parse(qtyController.text),
-                          price: double.parse(priceController.text),
-                          sellprice: double.parse(sellpriceController.text));
+                        barcode: barcodeController.text,
+                        name: nameController.text,
+                        catId: catId,
+                        description: descController.text,
+                        stock: int.parse(qtyController.text),
+                        price: double.parse(priceController.text),
+                      );
                       widget.add(temp);
                       Navigator.of(context).pop();
                       ScaffoldMessenger.of(context).showSnackBar(

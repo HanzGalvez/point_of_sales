@@ -351,11 +351,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                         name:
                                                             "<Product Not Found>",
                                                         catId: 0,
-                                                        iconId: 0,
                                                         description: "",
-                                                        measurement: "",
-                                                        price: 0,
-                                                        sellprice: 0);
+                                                        price: 0);
                                                   },
                                                 );
                                                 return PopularProductCard(

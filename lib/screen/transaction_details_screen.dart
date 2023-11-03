@@ -149,11 +149,8 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                               barcode: "",
                               name: "",
                               catId: 0,
-                              iconId: 0,
                               description: "",
-                              measurement: "",
-                              price: 0.00,
-                              sellprice: 0.00),
+                              price: 0.00),
                         );
                         return Card(
                           child: ListTile(

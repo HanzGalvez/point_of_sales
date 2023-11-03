@@ -8,16 +8,12 @@ class ProductDBHelper {
   static const dbVersion = 1;
   static const String tblName = 'product';
   static const String colId = 'id';
-
   static const String colBarcode = 'barcode';
   static const String colTitle = 'title';
   static const String colCatId = 'catid';
-  static const String colIconId = 'iconId';
   static const String colDescription = 'desc';
-  static const String colMeasurement = 'measurement';
   static const String colStock = 'stock';
   static const String colPrice = 'price';
-  static const String colSellprice = 'sellprice';
 
   static Future<Database> openDb() async {
     final dbpath = await getDatabasesPath();
@@ -32,12 +28,9 @@ class ProductDBHelper {
             $colBarcode TEXT NOT NULL,
             $colTitle TEXT NOT NULL,
             $colCatId INTEGER ,
-            $colIconId INTEGER,
-            $colMeasurement TEXT NOT NULL,
             $colDescription TEXT NOT NULL,
             $colStock INTEGER,
-            $colPrice DECIMAL, 
-            $colSellprice DECIMAL
+            $colPrice DECIMAL
           )
       ''',
     );
@@ -76,12 +69,9 @@ class ProductDBHelper {
           barcode: element[colBarcode],
           name: element[colTitle],
           catId: int.parse(element[colCatId].toString()),
-          iconId: int.parse(element[colIconId].toString()),
           description: element[colDescription],
-          measurement: element[colMeasurement],
           stock: int.parse(element[colStock].toString()),
           price: double.parse(element[colPrice].toString()),
-          sellprice: double.parse(element[colSellprice].toString()),
         ),
       );
     });
@@ -146,12 +136,9 @@ class ProductDBHelper {
           barcode: element[colBarcode],
           name: element[colTitle],
           catId: int.parse(element[colCatId].toString()),
-          iconId: int.parse(element[colIconId].toString()),
           description: element[colDescription],
-          measurement: element[colMeasurement],
           stock: int.parse(element[colStock].toString()),
           price: double.parse(element[colPrice].toString()),
-          sellprice: double.parse(element[colSellprice].toString()),
         ),
       );
     });

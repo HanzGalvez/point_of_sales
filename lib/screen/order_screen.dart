@@ -233,6 +233,11 @@ class _OrderScreenState extends State<OrderScreen> {
                     itemBuilder: (_, index) {
                       Product item = _productList.singleWhere((element) =>
                           element.id == orderList[index].productId);
+
+                      int sublength =
+                          orderList[index].subTotal().toString().length;
+                      double subwidth = 85 - sublength.toDouble();
+
                       return Card(
                         child: Dismissible(
                           confirmDismiss: (direction) {
@@ -293,82 +298,124 @@ class _OrderScreenState extends State<OrderScreen> {
                             ),
                           ),
                           key: ValueKey(orderList[index]),
-                          child: ListTile(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (_) {
-                                  return MyAlertQtyModal(
-                                    qty: orderList[index].qty,
-                                    tempProduct: item,
-                                    controller: qtyController,
-                                    add: () {
-                                      if (qtyController.text == "") {
-                                        return 2;
-                                      } else if (int.tryParse(
-                                              qtyController.text) ==
-                                          null) {
-                                        return 3;
-                                      } else if (int.parse(
-                                              qtyController.text) <=
-                                          0) {
-                                        return 4;
-                                      } else {
-                                        int qty =
-                                            int.parse(qtyController.text) +
-                                                orderList[index].qty;
-                                        if (qty > item.stock) {
-                                          return 0;
-                                        } else {
-                                          setState(() {
-                                            orderList[index].qty = qty;
-                                          });
-                                        }
-                                      }
-                                      return 1;
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Product",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    Text("Qty",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    Text("Sub total",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
+                              ),
+                              ListTile(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) {
+                                      return MyAlertQtyModal(
+                                        qty: orderList[index].qty,
+                                        tempProduct: item,
+                                        controller: qtyController,
+                                        add: () {
+                                          if (qtyController.text == "") {
+                                            return 2;
+                                          } else if (int.tryParse(
+                                                  qtyController.text) ==
+                                              null) {
+                                            return 3;
+                                          } else if (int.parse(
+                                                  qtyController.text) <=
+                                              0) {
+                                            return 4;
+                                          } else {
+                                            int qty =
+                                                int.parse(qtyController.text) +
+                                                    orderList[index].qty;
+                                            if (qty > item.stock) {
+                                              return 0;
+                                            } else {
+                                              setState(() {
+                                                orderList[index].qty = qty;
+                                              });
+                                            }
+                                          }
+                                          return 1;
+                                        },
+                                      );
                                     },
                                   );
                                 },
-                              );
-                            },
-                            title: Text(
-                              item.name,
-                              style: GoogleFonts.poppins(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.green[800],
-                              ),
-                            ),
-                            subtitle: Text(
-                              "Price: ${item.price}",
-                              style: GoogleFonts.poppins(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: const Color.fromRGBO(0, 0, 0, .8),
-                              ),
-                            ),
-                            trailing: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "Qty: ${orderList[index].qty.toString()}",
+                                title: Text(
+                                  item.name,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.green[800],
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  "Price: ${item.price}",
                                   style: GoogleFonts.poppins(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
                                     color: const Color.fromRGBO(0, 0, 0, .8),
                                   ),
                                 ),
-                                Text(
-                                  "Sub total: ${orderList[index].subTotal()}",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color.fromRGBO(0, 0, 0, .8),
-                                  ),
+                                trailing: Wrap(
+                                  alignment: WrapAlignment.center,
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(Icons.remove)),
+                                        Text(
+                                          " ${orderList[index].qty.toString()}",
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color.fromRGBO(
+                                                0, 0, 0, .8),
+                                          ),
+                                        ),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(Icons.add)),
+                                      ],
+                                    ),
+
+                                    SizedBox(
+                                      width: subwidth,
+                                    ),
+                                    // ... rest of the ListTile
+
+                                    Text(
+                                      " ${orderList[index].subTotal()}",
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                        color:
+                                            const Color.fromRGBO(0, 0, 0, .8),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       );

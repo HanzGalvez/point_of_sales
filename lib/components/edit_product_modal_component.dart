@@ -271,15 +271,13 @@ class _EditProductModalState extends State<EditProductModal> {
                       }
 
                       var temp = Product(
-                          id: widget.product.id,
-                          barcode: barcodeController.text,
-                          name: nameController.text,
-                          catId: catId,
-                          iconId: 0,
-                          description: descController.text,
-                          measurement: "25kg",
-                          price: double.parse(priceController.text),
-                          sellprice: double.parse(priceController.text));
+                        id: widget.product.id,
+                        barcode: barcodeController.text,
+                        name: nameController.text,
+                        catId: catId,
+                        description: descController.text,
+                        price: double.parse(priceController.text),
+                      );
                       ProductDBHelper.update(temp);
                       widget.onUpdate();
                       Navigator.of(context).pop();
