@@ -111,74 +111,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(bottom: 15),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.white12,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: TextField(
-                            style: GoogleFonts.poppins(
-                              fontSize: 17,
-                              color: Colors.white,
-                            ),
-                            onChanged: (value) {
-                              _searchList = [];
-                              if (value == "") {
-                                isSearch = false;
-                                setState(() {});
-                              } else {
-                                isSearch = true;
-                                _productlist.forEach((element) {
-                                  if (element.name
-                                      .toLowerCase()
-                                      .contains(value.toLowerCase())) {
-                                    _searchList.add(element);
-                                  }
-                                });
-                                setState(() {});
-                              }
-                            },
-                            decoration: InputDecoration(
-                              hintText: "Search Product...",
-                              hintStyle: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
-                              contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 15.0),
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                        if (!isSearch)
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Today's sales:",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                "${salesToday.toStringAsFixed(2)}",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                            ],
-                          ),
-                      ],
+                      children: [],
                     ),
                   ),
                 ),
@@ -268,39 +201,164 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   ],
                                 ),
                               ),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 20),
-                                color: Colors.green[800],
-                                child: GridView(
-                                  shrinkWrap: true,
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 4,
-                                    childAspectRatio: 3 / 2,
+                              if (!isSearch)
+                                Container(
+                                  height: 200,
+                                  child: Card(
+                                    elevation:
+                                        5, // You can adjust the elevation as needed
+                                    margin: const EdgeInsets.all(
+                                        20), // You can adjust the margin as needed
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 15, left: 25),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Today's sales:",
+                                                    style: GoogleFonts.poppins(
+                                                      fontSize: 22,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      const SizedBox(
+                                                        width: 140,
+                                                      ),
+                                                      Text(
+                                                        "₱", // Peso sign
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "${salesToday.toStringAsFixed(2)}",
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          fontSize: 22,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10, horizontal: 10),
+                                          color: Colors.white,
+                                          child: GridView(
+                                            shrinkWrap: true,
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 4,
+                                              childAspectRatio: 3 / 2,
+                                            ),
+                                            children: [
+                                              gridNavBArCard(
+                                                goto: ProductScreen(),
+                                                icon: Icons.view_list_outlined,
+                                                title: "Products",
+                                              ),
+                                              gridNavBArCard(
+                                                goto: CategoryScreen(),
+                                                icon: Icons.category_outlined,
+                                                title: "Category",
+                                              ),
+                                              gridNavBArCard(
+                                                goto: TransactionScreen(),
+                                                icon:
+                                                    Icons.card_travel_outlined,
+                                                title: "Transaction",
+                                              ),
+                                              gridNavBArCard(
+                                                goto: SalesScreen(),
+                                                icon: Icons.money_outlined,
+                                                title: "Sales",
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 12,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  children: [
-                                    gridNavBArCard(
-                                      goto: ProductScreen(),
-                                      icon: Icons.view_list_outlined,
-                                      title: "Products",
+                                ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 15, left: 15),
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 10),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.green.shade100,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: TextField(
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 17,
+                                      color: Colors.white,
                                     ),
-                                    gridNavBArCard(
-                                      goto: CategoryScreen(),
-                                      icon: Icons.category_outlined,
-                                      title: "Category",
+                                    onChanged: (value) {
+                                      _searchList = [];
+                                      if (value == "") {
+                                        isSearch = false;
+                                        setState(() {});
+                                      } else {
+                                        isSearch = true;
+                                        _productlist.forEach((element) {
+                                          if (element.name
+                                              .toLowerCase()
+                                              .contains(value.toLowerCase())) {
+                                            _searchList.add(element);
+                                          }
+                                        });
+                                        setState(() {});
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      hintText: "Search Product...",
+                                      hintStyle: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey,
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 15.0),
+                                      border: InputBorder.none,
                                     ),
-                                    gridNavBArCard(
-                                      goto: TransactionScreen(),
-                                      icon: Icons.card_travel_outlined,
-                                      title: "Transaction",
-                                    ),
-                                    gridNavBArCard(
-                                      goto: SalesScreen(),
-                                      icon: Icons.money_outlined,
-                                      title: "Sales",
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
                               TabBar(
