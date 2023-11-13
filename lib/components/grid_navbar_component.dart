@@ -19,21 +19,14 @@ class gridNavBArCard extends StatelessWidget {
         );
       },
       child: Card(
+        color: Colors.green.shade100,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               icon,
-              size: 17,
-              color: Colors.green[700],
-            ),
-            Text(
-              title,
-              style: GoogleFonts.poppins(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                color: Color.fromRGBO(0, 0, 0, .7),
-              ),
+              size: 20,
+              color: const Color.fromARGB(255, 3, 64, 5),
             ),
           ],
         ),

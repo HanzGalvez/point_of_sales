@@ -146,7 +146,18 @@ class _OrderScreenState extends State<OrderScreen> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[700],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              colors: [
+                Color.fromRGBO(45, 161, 95, 100),
+                Colors.green
+              ], // Adjust the colors as needed
+            ),
+          ),
+        ),
         title: Text(
           "Order",
           style: GoogleFonts.lato(
@@ -236,7 +247,7 @@ class _OrderScreenState extends State<OrderScreen> {
 
                       int sublength =
                           orderList[index].subTotal().toString().length;
-                      double subwidth = 85 - sublength.toDouble();
+                      double subwidth = 69 - sublength.toDouble();
 
                       return Card(
                         child: Dismissible(

@@ -11,6 +11,7 @@ class DatabaseHandler {
   static const dbname = 'itrack.db';
   static Future<Database> createDB() async {
     final dbpath = await getDatabasesPath();
+
     return openDatabase(
       p.join(dbpath, dbname),
       version: dbVersion,

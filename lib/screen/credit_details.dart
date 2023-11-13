@@ -10,16 +10,16 @@ import '../components/drawer_component.dart';
 import '../components/floating_action_order_component.dart';
 import '../helpers/productdb.dart';
 
-class TransactionDetailsScreen extends StatefulWidget {
-  TransactionDetailsScreen({super.key, required this.invoice});
-  Invoice invoice;
+class CreditDetailsScreen extends StatefulWidget {
+  CreditDetailsScreen({
+    super.key,
+  });
 
   @override
-  State<TransactionDetailsScreen> createState() =>
-      _TransactionDetailsScreenState();
+  State<CreditDetailsScreen> createState() => _CreditDetailsScreenState();
 }
 
-class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
+class _CreditDetailsScreenState extends State<CreditDetailsScreen> {
   List<Product> _productlist = [];
   List<InvoiceLine> _invoiceLine = [];
   bool _isLoading = true;
@@ -30,7 +30,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
     setState(() {
       inv.forEach((element) {
-        if (element.invoiceId == widget.invoice.id) {
+        if (element.invoiceId == 1) {
           _invoiceLine.add(element);
         }
       });
@@ -70,7 +70,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
           ),
         ),
         title: Text(
-          "Transaction Details",
+          "Credit Details",
           style: GoogleFonts.lato(
             fontSize: 23,
             color: Colors.white,
@@ -103,7 +103,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Total Price: ${widget.invoice.totalAmount}",
+                              "Remaining Credit: P100.00",
                               style: GoogleFonts.poppins(
                                 fontSize: 19,
                                 fontWeight: FontWeight.w500,
@@ -114,13 +114,19 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                               height: 10,
                             ),
                             Text(
-                              "Total Product: ${_invoiceLine.length}",
+                              "Total Price: P1000.00",
                               style: GoogleFonts.poppins(
                                 fontSize: 16,
                               ),
                             ),
                             Text(
-                              "Total Items: ${_totalItem()}",
+                              "Total Product: 2",
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              "Total Items: 10",
                               style: GoogleFonts.poppins(
                                 fontSize: 16,
                               ),
@@ -128,21 +134,43 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                             SizedBox(
                               height: 10,
                             ),
-                            Text(
-                              "Cash Tendered: ${widget.invoice.custumerPayAmount}",
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                              ),
-                            ),
                             SizedBox(
                               height: 1,
                             ),
                             Text(
-                              "Tendered By: Dick Lomibao",
+                              "Listed By: Dick Lomibao",
                               style: GoogleFonts.poppins(
                                 fontSize: 16,
                               ),
                             )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Card(
+                    child: Container(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Partials",
+                              style: GoogleFonts.poppins(
+                                fontSize: 19,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.green[800],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ListTile(
+                              title: Text("Paid: P900.00"),
+                              subtitle: Text("Date: 11-13-2023"),
+                            ),
                           ],
                         ),
                       ),
@@ -161,24 +189,21 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: _invoiceLine.length,
+                      itemCount: 2,
                       itemBuilder: (context, index) {
-                        Product product = _productlist.singleWhere(
-                          (temp) => temp.id == _invoiceLine[index].productId,
-                          orElse: () => Product(
-                            barcode: "",
-                            name: "",
-                            catId: 0,
-                            description: "",
-                            price: 0.00,
-                            measurement: "",
-                            retailPrice: 0,
-                          ),
-                        );
+                        // Product product = _productlist.singleWhere(
+                        //   (temp) => temp.id == _invoiceLine[index].productId,
+                        //   orElse: () => Product(
+                        //       barcode: "",
+                        //       name: "",
+                        //       catId: 0,
+                        //       description: "",
+                        //       price: 0.00),
+                        // );
                         return Card(
                           child: ListTile(
                             subtitle: Text(
-                              "Total Price: ${_invoiceLine[index].subTotal()}",
+                              "Total Price: 500.00",
                               style: GoogleFonts.poppins(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
@@ -186,9 +211,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                               ),
                             ),
                             title: Text(
-                              product.name != ""
-                                  ? product.name
-                                  : "<Product not found>",
+                              "Milo" != "" ? "Milo" : "<Product not found>",
                               style: GoogleFonts.poppins(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
@@ -196,7 +219,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                               ),
                             ),
                             trailing: Text(
-                              "Qty: ${_invoiceLine[index].qty}",
+                              "Qty: 5",
                               style: GoogleFonts.poppins(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,

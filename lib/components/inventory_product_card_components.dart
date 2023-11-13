@@ -22,6 +22,10 @@ class InventoryProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0), // Rounded corners
+        ),
+        tileColor: Color.fromRGBO(213, 236, 223, 100),
         onTap: () {
           onTap();
         },

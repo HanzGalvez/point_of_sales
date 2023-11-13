@@ -29,6 +29,8 @@ class _EditProductModalState extends State<EditProductModal> {
   var descController = TextEditingController();
   var qtyController = TextEditingController();
   var priceController = TextEditingController();
+  var sizeController = TextEditingController();
+  var retailPrice = TextEditingController();
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
     try {
@@ -277,6 +279,8 @@ class _EditProductModalState extends State<EditProductModal> {
                         catId: catId,
                         description: descController.text,
                         price: double.parse(priceController.text),
+                        measurement: sizeController.text,
+                        retailPrice: double.parse(retailPrice.text),
                       );
                       ProductDBHelper.update(temp);
                       widget.onUpdate();

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:point_of_sales/screen/credits_screen.dart';
 import 'package:point_of_sales/screen/settings.screen.dart';
+import 'package:point_of_sales/screen/switchAccount.dart';
+import 'package:point_of_sales/screen/switchstore_screen.dart';
 import 'package:point_of_sales/screen/transaction_screen.dart';
 import '../screen/product_screen.dart';
 import '../screen/sales_screen.dart';
@@ -17,12 +20,12 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     return Drawer(
-      backgroundColor: Color.fromRGBO(56, 142, 60, 1),
+      backgroundColor: Color.fromRGBO(45, 161, 95, 100),
       child: ListView(
         children: [
           DrawerHeader(
             decoration: const BoxDecoration(
-              color: Color.fromRGBO(56, 142, 60, 1),
+              color: Color.fromRGBO(45, 161, 95, 100),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -82,11 +85,44 @@ class MyDrawer extends StatelessWidget {
                 ),
                 DrawerLink(
                   icon: const Icon(Icons.money_outlined),
-                  title: "Sales",
+                  title: "Reports",
                   onPress: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) => SalesScreen(),
+                      ),
+                    );
+                  },
+                ),
+                DrawerLink(
+                  icon: const Icon(Icons.credit_card),
+                  title: "Credits",
+                  onPress: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => CreditsScreen(),
+                      ),
+                    );
+                  },
+                ),
+                DrawerLink(
+                  icon: const Icon(Icons.storefront_rounded),
+                  title: "Stores",
+                  onPress: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => Switchstore(),
+                      ),
+                    );
+                  },
+                ),
+                DrawerLink(
+                  icon: const Icon(Icons.supervised_user_circle),
+                  title: "Account",
+                  onPress: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => SwitchAccount(),
                       ),
                     );
                   },

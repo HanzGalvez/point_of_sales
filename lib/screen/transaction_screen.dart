@@ -37,7 +37,18 @@ class _TransactionScreenState extends State<TransactionScreen> {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[700],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              colors: [
+                Color.fromRGBO(45, 161, 95, 100),
+                Colors.green
+              ], // Adjust the colors as needed
+            ),
+          ),
+        ),
         title: Text(
           "Transactions",
           style: GoogleFonts.lato(
@@ -76,6 +87,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     itemBuilder: (context, index) {
                       return Card(
                         child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(12.0), // Rounded corners
+                          ),
+                          tileColor: Color.fromRGBO(213, 236, 223, 100),
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => TransactionDetailsScreen(

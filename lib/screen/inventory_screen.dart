@@ -66,7 +66,18 @@ class _InventoryScreenState extends State<InventoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[700],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              colors: [
+                Color.fromRGBO(45, 161, 95, 100),
+                Colors.green
+              ], // Adjust the colors as needed
+            ),
+          ),
+        ),
         actions: [
           GestureDetector(
             onTap: () {

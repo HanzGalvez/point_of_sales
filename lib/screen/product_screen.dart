@@ -42,11 +42,22 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[700],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              colors: [
+                Color.fromRGBO(45, 161, 95, 100),
+                Colors.green
+              ], // Adjust the colors as needed
+            ),
+          ),
+        ),
         title: Text(
-          "Product",
+          "PRODUCT",
           style: GoogleFonts.lato(
-            fontSize: 23,
+            fontSize: 18,
             color: Colors.white,
             fontWeight: FontWeight.w500,
           ),

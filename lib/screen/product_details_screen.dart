@@ -123,6 +123,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 ),
                               ),
                               Text(
+                                "Retail price: ${widget.product.retailPrice}",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 17,
+                                ),
+                              ),
+                              Text(
                                 "Price: ${widget.product.price}",
                                 style: GoogleFonts.poppins(
                                   fontSize: 17,

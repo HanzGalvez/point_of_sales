@@ -80,6 +80,10 @@ class ProductCard extends StatelessWidget {
           onDismissed();
         },
         child: ListTile(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0), // Rounded corners
+          ),
+          tileColor: Color.fromRGBO(213, 236, 223, 100),
           leading: Icon(Icons.shopify),
           onTap: () {
             onTap();
@@ -88,8 +92,7 @@ class ProductCard extends StatelessWidget {
             product.name + " (25 Grams)",
             style: GoogleFonts.poppins(
               fontSize: 17,
-              fontWeight: FontWeight.w500,
-              color: Colors.green[800],
+              fontWeight: FontWeight.w400,
             ),
           ),
           subtitle: Text(

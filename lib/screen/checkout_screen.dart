@@ -37,7 +37,18 @@ class CheckOutScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[700],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              colors: [
+                Color.fromRGBO(45, 161, 95, 100),
+                Colors.green
+              ], // Adjust the colors as needed
+            ),
+          ),
+        ),
         title: Text(
           "Check out",
           style: GoogleFonts.lato(
@@ -65,13 +76,27 @@ class CheckOutScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Items:",
-                        style: GoogleFonts.poppins(
-                          fontSize: 23,
-                          color: Colors.green[800],
-                          fontWeight: FontWeight.w500,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 35),
+                            child: Text(
+                              "Items:",
+                              style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "Sub Total",
+                            style: GoogleFonts.poppins(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -84,27 +109,55 @@ class CheckOutScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             Product product = productList.singleWhere(
                                 (temp) => temp.id == order[index].productId);
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  product.name,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 17,
-                                    color: const Color.fromRGBO(0, 0, 0, .7),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                Text(
-                                  "${order[index].productPrice} * ${order[index].qty} ",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 17,
-                                    color: const Color.fromRGBO(0, 0, 0, .7),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
+
+                            double subtotal =
+                                order[index].productPrice * order[index].qty;
+                            return ListTile(
+                              leading: Text("${order[index].qty} "),
+                              title: Text(product.name),
+                              subtitle:
+                                  Text("Price: ${order[index].productPrice} "),
+                              trailing: Text("${subtotal}"),
                             );
+                            // return Row(
+                            //   crossAxisAlignment: CrossAxisAlignment.start,
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+
+                            //     Text(
+                            //       product.name,
+                            //       style: GoogleFonts.poppins(
+                            //         fontSize: 17,
+                            //         color: const Color.fromRGBO(0, 0, 0, .7),
+                            //         fontWeight: FontWeight.w500,
+                            //       ),
+                            //     ),
+                            //     Row(
+                            //       mainAxisAlignment:
+                            //           MainAxisAlignment.spaceBetween,
+                            //       children: [
+                            //         Text(
+                            //           "${order[index].productPrice}",
+                            //           style: GoogleFonts.poppins(
+                            //             fontSize: 17,
+                            //             color:
+                            //                 const Color.fromRGBO(0, 0, 0, .7),
+                            //             fontWeight: FontWeight.w500,
+                            //           ),
+                            //         ),
+                            //         Text(
+                            //           "${order[index].qty} ",
+                            //           style: GoogleFonts.poppins(
+                            //             fontSize: 17,
+                            //             color:
+                            //                 const Color.fromRGBO(0, 0, 0, .7),
+                            //             fontWeight: FontWeight.w500,
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ],
+                            // );
                           },
                         ),
                       ),
@@ -116,19 +169,39 @@ class CheckOutScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text(
-                              "Total Price: ${totalPrice().toString()}",
-                              style: GoogleFonts.poppins(
-                                fontSize: 23,
-                                color: Colors.green[800],
-                                fontWeight: FontWeight.w500,
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Total Price: ",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    color: Colors.green[800],
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  "P${totalPrice().toString()}",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    color: Colors.green[800],
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ),
                     ],
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: TextField(
+                  controller: amountController,
+                  decoration: InputDecoration(labelText: "Cash Tendered"),
                 ),
               ),
               Container(
@@ -140,79 +213,67 @@ class CheckOutScreen extends StatelessWidget {
                     backgroundColor: Colors.green[700],
                   ),
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return MyAlertAmountInput(
-                          controller: amountController,
-                          add: () {
-                            if (amountController.text == "") {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    content: Text('Amount is required.'),
-                                  );
-                                },
-                              );
-                              return;
-                            }
-                            if (double.tryParse(amountController.text) ==
-                                null) {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    content: Text(
-                                        'Invalid amount. Check your input.'),
-                                  );
-                                },
-                              );
-                              return;
-                            }
-                            double amount = double.parse(amountController.text);
-                            if (totalPrice() > amount) {
-                              showDialog(
-                                context: context,
-                                builder: (context) => const AlertDialog(
-                                  content: Text(
-                                    "Insufficient Amount.",
-                                  ),
-                                ),
-                              );
-                            } else {
-                              final uuid = const Uuid().v4();
-                              InvoiceDBHelper.insert(
-                                Invoice(
-                                  id: uuid,
-                                  custumerPayAmount: amount,
-                                  totalAmount: totalPrice(),
-                                ),
-                              );
+                    if (amountController.text == "") {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text('Amount is required.'),
+                          );
+                        },
+                      );
+                      return;
+                    }
+                    if (double.tryParse(amountController.text) == null) {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text('Invalid amount. Check your input.'),
+                          );
+                        },
+                      );
+                      return;
+                    }
+                    double amount = double.parse(amountController.text);
+                    if (totalPrice() > amount) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => const AlertDialog(
+                          content: Text(
+                            "Insufficient Amount.",
+                          ),
+                        ),
+                      );
+                    } else {
+                      final uuid = const Uuid().v4();
+                      InvoiceDBHelper.insert(
+                        Invoice(
+                          id: uuid,
+                          custumerPayAmount: amount,
+                          totalAmount: totalPrice(),
+                        ),
+                      );
 
-                              for (var temp in order) {
-                                temp.invoiceId = uuid;
-                                InvoiceLineDBHelper.insert(temp);
-                                ProductDBHelper.minus(
-                                    id: temp.productId, qty: temp.qty);
-                              }
-                              double change = amount - totalPrice();
-                              Navigator.pop(context);
-                              showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) => AlertSuccessModal(
-                                  change: change,
-                                ),
-                              );
-                            }
-                          },
-                        );
-                      },
-                    );
+                      for (var temp in order) {
+                        temp.invoiceId = uuid;
+                        InvoiceLineDBHelper.insert(temp);
+                        ProductDBHelper.minus(
+                            id: temp.productId, qty: temp.qty);
+                      }
+                      double change = amount - totalPrice();
+                      Navigator.pop(context);
+                      showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) => AlertSuccessModal(
+                          change: change,
+                        ),
+                      );
+                    }
                   },
                   child: Text(
-                    "Check Out",
+                    "Pay",
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,

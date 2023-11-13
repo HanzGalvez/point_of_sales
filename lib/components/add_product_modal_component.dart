@@ -25,7 +25,7 @@ class _AddProductModelState extends State<AddProductModel> {
   var sizeController = TextEditingController();
   var qtyController = TextEditingController();
   var priceController = TextEditingController();
-  var sellpriceController = TextEditingController();
+  var retailPrice = TextEditingController();
   var catId = 0;
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
@@ -209,12 +209,12 @@ class _AddProductModelState extends State<AddProductModel> {
               ),
               TextFieldComponents(
                 label: "Retail Price",
-                controller: priceController,
+                controller: retailPrice,
                 keyboardType: TextInputType.number,
               ),
               TextFieldComponents(
                 label: "Selling Price",
-                controller: sellpriceController,
+                controller: priceController,
                 keyboardType: TextInputType.number,
               ),
               Container(
@@ -308,6 +308,8 @@ class _AddProductModelState extends State<AddProductModel> {
                         description: descController.text,
                         stock: int.parse(qtyController.text),
                         price: double.parse(priceController.text),
+                        measurement: sizeController.text,
+                        retailPrice: double.parse(retailPrice.text),
                       );
                       widget.add(temp);
                       Navigator.of(context).pop();

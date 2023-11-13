@@ -160,7 +160,7 @@ class _AddCategoryModelState extends State<AddCategoryModel> {
                   Text(
                     "Add Category",
                     style: GoogleFonts.poppins(
-                      fontSize: 22,
+                      fontSize: 20,
                       fontWeight: FontWeight.w500,
                       color: Colors.black87,
                     ),
@@ -215,7 +215,6 @@ class _AddCategoryModelState extends State<AddCategoryModel> {
 
                                               Navigator.of(context).pop();
                                               Navigator.of(context).pop();
-                                              nameController.clear();
                                             },
                                             child: Text(
                                               "Done",
@@ -267,73 +266,81 @@ class _AddCategoryModelState extends State<AddCategoryModel> {
                 controller: descController,
                 decoration: InputDecoration(labelText: "Description"),
               ),
-              Container(
-                height: 45,
-                margin: const EdgeInsets.only(top: 20),
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green[700],
-                  ),
-                  onPressed: () {
-                    if (nameController.text.isEmpty) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Text('Category Name is required'),
-                          );
-                        },
-                      );
-                      return;
-                    }
-                    if (descController.text.isEmpty) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Text('Category Description is required'),
-                          );
-                        },
-                      );
-                      return;
-                    }
-                    var selectedCategory = categories.firstWhere(
-                        (category) => category.id == selectedCategoryId);
+              Center(
+                child: Container(
+                  height: 40,
+                  margin: const EdgeInsets.only(top: 20),
+                  width: 100,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromRGBO(2, 253, 111, 0.624),
+                    ),
+                    onPressed: () {
+                      if (nameController.text.isEmpty) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: Text('Category Name is required'),
+                            );
+                          },
+                        );
+                        return;
+                      }
+                      if (descController.text.isEmpty) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: Text('Category Description is required'),
+                            );
+                          },
+                        );
+                        return;
+                      }
+                      var selectedCategory = categories.firstWhere(
+                          (category) => category.id == selectedCategoryId);
 
-                    var temp = Category(
-                      title: selectedCategory.title,
-                      description: descController.text,
-                      icon: selectedCategoryId,
-                    );
-                    widget.add(temp);
-                    Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.green[700],
-                        content: Text(
-                          'Successfully added',
-                          style: GoogleFonts.poppins(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
+                      if (selectedCategoryId > 20) {
+                        selectedCategoryId = 0;
+                      }
+
+                      var temp = Category(
+                        title: selectedCategory.title,
+                        description: descController.text,
+                        icon: selectedCategoryId,
+                      );
+                      widget.add(temp);
+                      Navigator.of(context).pop();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.green[700],
+                          content: Text(
+                            'Successfully added',
+                            style: GoogleFonts.poppins(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          action: SnackBarAction(
+                            textColor: Colors.white,
+                            label: 'Undo',
+                            onPressed: () {
+                              widget.undo();
+                            },
                           ),
                         ),
-                        action: SnackBarAction(
-                          textColor: Colors.white,
-                          label: 'Undo',
-                          onPressed: () {
-                            widget.undo();
-                          },
-                        ),
+                      );
+
+                      nameController.clear();
+                    },
+                    child: Text(
+                      "ADD",
+                      style: GoogleFonts.poppins(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
                       ),
-                    );
-                  },
-                  child: Text(
-                    "Add",
-                    style: GoogleFonts.poppins(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),

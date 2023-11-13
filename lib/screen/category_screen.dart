@@ -30,11 +30,22 @@ class _CategoryScreenState extends State<CategoryScreen> {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              backgroundColor: Colors.green[700],
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.topRight,
+                    colors: [
+                      Color.fromRGBO(45, 161, 95, 100),
+                      Colors.green
+                    ], // Adjust the colors as needed
+                  ),
+                ),
+              ),
               title: Text(
-                "Category",
+                "CATEGORY",
                 style: GoogleFonts.lato(
-                  fontSize: 23,
+                  fontSize: 18,
                   color: Colors.white,
                   fontWeight: FontWeight.w500,
                 ),
@@ -72,7 +83,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           size: 22,
                         ),
                         Text(
-                          "Add item",
+                          "New",
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -167,6 +178,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               setState(() {});
                             },
                             child: ListTile(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    12.0), // Rounded corners
+                              ),
+                              tileColor: Color.fromRGBO(213, 236, 223, 100),
                               leading: icons[list.data![index]['icon']],
                               onTap: () {
                                 Navigator.of(context).push(
@@ -188,8 +204,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 list.data![index]['title'],
                                 style: GoogleFonts.poppins(
                                   fontSize: 17,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.green[700],
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                               subtitle: Text(
@@ -202,7 +217,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               trailing: IconButton(
                                 icon: const Icon(
                                   Icons.edit_note_outlined,
-                                  color: Color.fromRGBO(56, 142, 60, 1),
+                                  color: Color.fromRGBO(58, 152, 63, 1),
                                 ),
                                 onPressed: () {
                                   showDialog(

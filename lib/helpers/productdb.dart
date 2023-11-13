@@ -12,9 +12,12 @@ class ProductDBHelper {
   static const String colTitle = 'title';
   static const String colCatId = 'catid';
   static const String colDescription = 'desc';
+
   static const String colStock = 'stock';
   static const String colPrice = 'price';
-
+  //new
+  static const String colMeasurement = 'measurement';
+  static const String colReatailPrice = 'retail_price';
   static Future<Database> openDb() async {
     final dbpath = await getDatabasesPath();
     return openDatabase(p.join(dbpath, DatabaseHandler.dbname));
@@ -30,7 +33,9 @@ class ProductDBHelper {
             $colCatId INTEGER ,
             $colDescription TEXT NOT NULL,
             $colStock INTEGER,
-            $colPrice DECIMAL
+            $colPrice DECIMAL,
+            $colMeasurement TEXT NOT NULL,
+            $colReatailPrice DECIMAL
           )
       ''',
     );
@@ -72,6 +77,8 @@ class ProductDBHelper {
           description: element[colDescription],
           stock: int.parse(element[colStock].toString()),
           price: double.parse(element[colPrice].toString()),
+          measurement: element[colMeasurement].toString(),
+          retailPrice: double.parse(element[colReatailPrice].toString()),
         ),
       );
     });
@@ -139,6 +146,8 @@ class ProductDBHelper {
           description: element[colDescription],
           stock: int.parse(element[colStock].toString()),
           price: double.parse(element[colPrice].toString()),
+          measurement: element[colMeasurement].toString(),
+          retailPrice: double.parse(element[colReatailPrice].toString()),
         ),
       );
     });

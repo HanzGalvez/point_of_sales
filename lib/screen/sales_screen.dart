@@ -133,128 +133,320 @@ class _SalesScreenState extends State<SalesScreen> {
   //all data presented is just tempory
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green[700],
-        title: Text(
-          "Sales Information",
-          style: GoogleFonts.lato(
-            fontSize: 23,
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: [Tab(text: "Sales"), Tab(text: "Profit")],
           ),
-        ),
-        toolbarHeight: 60,
-        elevation: 0,
-        iconTheme: const IconThemeData(
-          size: 30,
-          color: Colors.white,
-        ),
-      ),
-      body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(
-              color: Colors.green[700],
-            ))
-          : SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Container(
-                      height: 1,
-                      width: double.infinity,
-                      color: Colors.white,
-                    ),
-                    Card(
-                      color: Colors.green[700],
-                      child: Container(
-                        width: double.infinity,
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "List of total sales",
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Today: ${salesToday}",
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                "This week: ${SalesComputed(weekly)}",
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                "This month: ${salesMontly}",
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                "This Year: ${SalesComputed(monthly)}",
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Overall sales: ${overAllSales}",
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 19,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SalesChart(
-                      title: "Sales this week",
-                      data: weekly,
-                    ),
-                    SalesChart(
-                      title: "Weekly sales of the month",
-                      data: weeklyMonth,
-                    ),
-                    SalesChart(
-                      title: "Monthly sales of the year",
-                      data: monthly,
-                    ),
-                    SalesChart(title: "Yearly Sales", data: yearlySales),
-                  ],
-                ),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.topRight,
+                colors: [
+                  Color.fromRGBO(45, 161, 95, 100),
+                  Colors.green
+                ], // Adjust the colors as needed
               ),
             ),
-      drawer: MyDrawer(),
-      floatingActionButton: MyFloatingActionOrder(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomNavBar(active: -1),
+          ),
+          title: Text(
+            "Sales Information",
+            style: GoogleFonts.lato(
+              fontSize: 23,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          toolbarHeight: 60,
+          elevation: 0,
+          iconTheme: const IconThemeData(
+            size: 30,
+            color: Colors.white,
+          ),
+        ),
+        body: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(
+                color: Color.fromRGBO(213, 236, 223, 100),
+              ))
+            : TabBarView(children: [
+                //Sales
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 1,
+                          width: double.infinity,
+                          color: Colors.white,
+                        ),
+                        Card(
+                          child: Text(
+                            "List of total sales",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          tileColor: Color.fromRGBO(213, 236, 223, 100),
+                          title: Text(
+                            "Today",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          trailing: Text(
+                            "P${salesToday}",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          tileColor: Color.fromRGBO(213, 236, 223, 100),
+                          title: Text(
+                            "This Week",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          trailing: Text(
+                            "P${SalesComputed(weekly)}",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          tileColor: Color.fromRGBO(213, 236, 223, 100),
+                          title: Text(
+                            "This Month",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          trailing: Text(
+                            "P${salesMontly}",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          tileColor: Color.fromRGBO(213, 236, 223, 100),
+                          title: Text(
+                            "This Year",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          trailing: Text(
+                            "P${SalesComputed(monthly)}",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          tileColor: Color.fromRGBO(213, 236, 223, 100),
+                          title: Text(
+                            "Overall Sales",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17,
+                              color: Colors.black,
+                            ),
+                          ),
+                          trailing: Text(
+                            "P${overAllSales}",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        SalesChart(
+                          title: "Sales this week",
+                          data: weekly,
+                        ),
+                        SalesChart(
+                          title: "Weekly sales of the month",
+                          data: weeklyMonth,
+                        ),
+                        SalesChart(
+                          title: "Monthly sales of the year",
+                          data: monthly,
+                        ),
+                        SalesChart(title: "Yearly Sales", data: yearlySales),
+                      ],
+                    ),
+                  ),
+                ),
+
+//Profit
+
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 1,
+                          width: double.infinity,
+                          color: Colors.white,
+                        ),
+                        Card(
+                          child: Text(
+                            "List of total profit",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          tileColor: Color.fromRGBO(213, 236, 223, 100),
+                          title: Text(
+                            "Today",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          trailing: Text(
+                            "P${salesToday}",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          tileColor: Color.fromRGBO(213, 236, 223, 100),
+                          title: Text(
+                            "This Week",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          trailing: Text(
+                            "P${SalesComputed(weekly)}",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          tileColor: Color.fromRGBO(213, 236, 223, 100),
+                          title: Text(
+                            "This Month",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          trailing: Text(
+                            "P${salesMontly}",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          tileColor: Color.fromRGBO(213, 236, 223, 100),
+                          title: Text(
+                            "This Year",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                          trailing: Text(
+                            "P${SalesComputed(monthly)}",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          tileColor: Color.fromRGBO(213, 236, 223, 100),
+                          title: Text(
+                            "Overall Profit",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17,
+                              color: Colors.black,
+                            ),
+                          ),
+                          trailing: Text(
+                            "P${overAllSales}",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        SalesChart(
+                          title: "Profit this week",
+                          data: weekly,
+                        ),
+                        SalesChart(
+                          title: "Weekly profit of the month",
+                          data: weeklyMonth,
+                        ),
+                        SalesChart(
+                          title: "Monthly profit of the year",
+                          data: monthly,
+                        ),
+                        SalesChart(title: "Yearly profit", data: yearlySales),
+                      ],
+                    ),
+                  ),
+                ),
+              ]),
+        drawer: MyDrawer(),
+        floatingActionButton: MyFloatingActionOrder(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomNavBar(active: -1),
+      ),
     );
   }
 }
