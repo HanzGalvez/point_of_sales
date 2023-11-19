@@ -64,8 +64,10 @@ class PinVerificationScreen extends StatelessWidget {
                       fieldBorderStyle: FieldBorderStyle.square,
                       borderWidth: 0,
                       borderRadius: BorderRadius.circular(10),
+                      borderColor: Colors.blueGrey,
                       keyboardType: TextInputType.number,
-                      activeBorderColor: Colors.green,
+                      activeBorderColor: Colors.black,
+                      activeBackgroundColor: Colors.grey,
                       onComplete: (value) async {
                         if (value.length == 4) {
                           final prefernces =
@@ -81,7 +83,13 @@ class PinVerificationScreen extends StatelessWidget {
                             showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                      content: Text('Incorrect pin.'),
+                                      content: Text(
+                                        'INCORRECT PIN!',
+                                        style: TextStyle(
+                                            color: const Color.fromARGB(
+                                                255, 205, 14, 0)),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ));
                           }
                         }
